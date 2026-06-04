@@ -6,15 +6,21 @@ const STORAGE_KEY = 'todoApp.items';
 
 let todos = [];
 
+
+// Save todos to localStorage whenever they change
 function saveTodos() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
 }
 
+
+// Load todos from localStorage on page load
 function loadTodos() {
     const saved = localStorage.getItem(STORAGE_KEY);
     todos = saved ? JSON.parse(saved) : [];
 }
 
+
+// Create a DOM element for a single todo item
 function createTodoElement(todo) {
     const item = document.createElement('li');
     item.className = `todo-item${todo.completed ? ' completed' : ''}`;
@@ -44,6 +50,8 @@ function createTodoElement(todo) {
     return item;
 }
 
+
+// Render the list of todos in the DOM
 function renderTodos() {
     list.innerHTML = '';
 
@@ -60,6 +68,8 @@ function renderTodos() {
     });
 }
 
+
+// Add a new todo item
 function addTodo(text) {
     const trimmed = text.trim();
     if (!trimmed) return;
@@ -74,6 +84,8 @@ function addTodo(text) {
     renderTodos();
 }
 
+
+// Toggle the completed state of a todo item
 function toggleTodo(id) {
     todos = todos.map(todo =>
         todo.id === id
@@ -85,6 +97,7 @@ function toggleTodo(id) {
     renderTodos();
 }
 
+// Delete a todo item
 function deleteTodo(id) {
     todos = todos.filter(todo => todo.id !== id);
     saveTodos();
